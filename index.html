@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coleção Hot Wheels T-Hunt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+            margin: 0;
+            background: #f8fafc;
+            color: #111827;
+        }
+        button {
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-primary:hover {
+            background-color: #7c3aed;
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        .card {
+            transition: transform 0.1s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .collected-card {
+            border: 4px solid #10b981;
+        }
+    </style>
+    <meta name="theme-color" content="#9333ea" />
+</head>
+<body>
+
+<div id="root"></div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+<script>
+(function() {
+    'use strict';
+    
+    var React = window.React;
+    var ReactDOM = window.ReactDOM;
+    var useState = React.useState;
+    var useCallback = React.useCallback;
+    var useMemo = React.useMemo;
+    var useEffect = React.useEffect; // Adicionado useEffect
+    var createElement = React.createElement;
+
+    var initialMiniaturesByYear = {
+        // ... (Seu objeto initialMiniaturesByYear permanece aqui)
+        2025: {
+            super: [
+                { id: 1, name: "87 Audi Quattro", image: "img/2025/01s.jpg" },
+                { id: 2, name: "Hiroata Merc", image: "img/2025/02s.jpg" },
+                { id: 3, name: "Hi-Roller II", image: "img/2025/03s.jpg" },
+                { id: 4, name: "75 Datsun Sunny Truck", image: "img/2025/04s.jpg" },
+                { id: 5, name: "Aston Martin DB4GT", image: "img/2025/05s.jpg" },
+                { id: 6, name: "20 Jeep Gladiator", image: "img/2025/06s.jpg" },
+                { id: 7, name: "Porsche 911 Rallye", image: "img/2025/07s.jpg" },
+                { id: 8, name: "71 Ford Mustang Funny Car", image: "img/2025/08s.jpg" },
+                { id: 9, name: "62 Corvette Gasser", image: "img/2025/09s.jpg" },
+                { id: 10, name: "MacLaren Speedtail", image: "img/2025/10s.jpg" },
+                { id: 11, name: "Bugatti EB110", image: "img/2025/11s.jpg" },
+                { id: 12, name: "73 Honda Civic Custom", image: "img/2025/12s.jpg" },
+                { id: 13, name: "20 Dodge Charger Hellcat", image: "img/2025/13s.jpg" },
+                { id: 14, name: "BMW M3 Wagon", image: "img/2025/14s.jpg" },
+                { id: 15, name: "Ford RS200", image: "img/2025/15s.jpg" },
+            ],
+            regular: [
+                { id: 1, name: "Ford Performance Supervan 4", image: "img/2025/01.jpg" },
+                { id: 2, name: "Fish'd & Chip'd", image: "img/2025/02.jpg" },
+                { id: 3, name: "Mailed It!", image: "img/2025/03.jpg" },
+                { id: 4, name: "Pedal Driver", image: "img/2025/04.jpg" },
+                { id: 5, name: "Rig Storm", image: "img/2025/05.jpg" },
+                { id: 6, name: "85 Honda City Turbo II", image: "img/2025/06.jpg" },
+                { id: 7, name: "Birthday Burner", image: "img/2025/07.jpg" },
+                { id: 8, name: "Chill Mill", image: "img/2025/08.jpg" },
+                { id: 9, name: "Nissan Leaf NISMO RC 02", image: "img/2025/09.jpg" },
+                { id: 10, name: "Chevroletor", image: "img/2025/10.jpg" },
+                { id: 11, name: "Honda S800 Racing", image: "img/2025/11.jpg" },
+                { id: 12, name: "Shark Bite", image: "img/2025/12.jpg" },
+                { id: 13, name: "1966 Triumph Tiger 100", image: "img/2025/13.jpg" },
+                { id: 14, name: "84 Audi Sport quattro", image: "img/2025/14.jpg" },
+                { id: 15, name: "Triumph TR6", image: "img/2025/15.jpg" }
+            ]
+        },
+        2024: {
+            super: [
+                { id: 1, name: "Ford Escort RS2000", image: "img/2024/01s.jpg" },
+                { id: 2, name: "18 Camaro SS", image: "img/2024/02s.jpg" },
+                { id: 3, name: "BMW 507", image: "img/2024/03s.jpg" },
+                { id: 4, name: "89 Mercedes-Benz 560 SEC AMG", image: "img/2024/04s.jpg" },
+                { id: 5, name: "60s Fiat 500D Modificado", image: "img/2024/05s.jpg" },
+                { id: 6, name: "71 El Camino", image: "img/2024/06s.jpg" },
+                { id: 7, name: "Audi 90 quattro", image: "img/2024/07s.jpg" },
+                { id: 8, name: "Volvo P1800 Gasser", image: "img/2024/08s.jpg" },
+                { id: 9, name: "Mitsubishi Pajero Evolution", image: "img/2024/09s.jpg" },
+                { id: 10, name: "Mazda 787B", image: "img/2024/10s.jpg" },
+                { id: 11, name: "77 Pontiac Firebird T/A", image: "img/2024/11s.jpg" },
+                { id: 12, name: "96 Nissan 180SX Type X", image: "img/2024/12s.jpg" },
+                { id: 13, name: "Celero GT", image: "img/2024/13s.jpg" },
+                { id: 14, name: "Lamborghini Huracán LP 620-2", image: "img/2024/14s.jpg" },
+                { id: 15, name: "83 Chevy Silverado", image: "img/2024/15s.jpg" }
+            ],
+            regular: [
+                { id: 1, name: "47 Chevy Fleetline", image: "img/2024/01.jpg" },
+                { id: 2, name: "Ain't Fare", image: "img/2024/02.jpg" },
+                { id: 3, name: "Tooligan", image: "img/2024/03.jpg" },
+                { id: 4, name: "Custom 53 Chevy", image: "img/2024/04.jpg" },
+                { id: 5, name: "Batman Forever Batmobile", image: "img/2024/05.jpg" },
+                { id: 6, name: "Ford Mustang Mach-E 1400", image: "img/2024/06.jpg" },
+                { id: 7, name: "Draggin Wagon", image: "img/2024/07.jpg" },
+                { id: 8, name: "Purple Passion", image: "img/2024/08.jpg" },
+                { id: 9, name: "Honda Super Cub Custom", image: "img/2024/09.jpg" },
+                { id: 10, name: "Bone Shaker", image: "img/2024/10.jpg" },
+                { id: 11, name: "Car-de-Asada", image: "img/2024/11.jpg" },
+                { id: 12, name: "Ford Transit Connect", image: "img/2024/12.jpg" },
+                { id: 13, name: "DMC DeLorean", image: "img/2024/13.jpg" },
+                { id: 14, name: "59 Chevy Impala", image: "img/2024/14.jpg" },
+                { id: 15, name: "Porsche 928S Safari", image: "img/2024/15.jpg" }
+            ]
+        },
+        2023: {
+            super: [
+                { id: 1, name: " ", image: "img/2023/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2023/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2023/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2023/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2023/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2023/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2023/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2023/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2023/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2023/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2023/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2023/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2023/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2023/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2023/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2023/th1.jpg" },
+                { id: 2, name: " ", image: "img/2023/th2.jpg" },
+                { id: 3, name: " ", image: "img/2023/th3.jpg" },
+                { id: 4, name: " ", image: "img/2023/th4.jpg" },
+                { id: 5, name: " ", image: "img/2023/th5.jpg" },
+                { id: 6, name: " ", image: "img/2023/th6.jpg" },
+                { id: 7, name: " ", image: "img/2023/th7.jpg" },
+                { id: 8, name: " ", image: "img/2023/th8.jpg" },
+                { id: 9, name: " ", image: "img/2023/th9.jpg" },
+                { id: 10, name: " ", image: "img/2023/th10.jpg" },
+                { id: 11, name: " ", image: "img/2023/th11.jpg" },
+                { id: 12, name: " ", image: "img/2023/th12.jpg" },
+                { id: 13, name: " ", image: "img/2023/th13.jpg" },
+                { id: 14, name: " ", image: "img/2023/th14.jpg" },
+                { id: 15, name: " ", image: "img/2023/th15.jpg" }
+            ]
+        },
+        2022: {
+            super: [
+                { id: 1, name: " ", image: "img/2023/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2022/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2022/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2022/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2022/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2022/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2022/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2022/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2022/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2022/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2022/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2022/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2022/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2022/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2022/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2022/th1.jpg" },
+                { id: 2, name: " ", image: "img/2022/th2.jpg" },
+                { id: 3, name: " ", image: "img/2022/th3.jpg" },
+                { id: 4, name: " ", image: "img/2022/th4.jpg" },
+                { id: 5, name: " ", image: "img/2022/th5.jpg" },
+                { id: 6, name: " ", image: "img/2022/th6.jpg" },
+                { id: 7, name: " ", image: "img/2022/th7.jpg" },
+                { id: 8, name: " ", image: "img/2022/th8.jpg" },
+                { id: 9, name: " ", image: "img/2022/th9.jpg" },
+                { id: 10, name: " ", image: "img/2022/th10.jpg" },
+                { id: 11, name: " ", image: "img/2022/th11.jpg" },
+                { id: 12, name: " ", image: "img/2022/th12.jpg" },
+                { id: 13, name: " ", image: "img/2022/th13.jpg" },
+                { id: 14, name: " ", image: "img/2022/th14.jpg" },
+                { id: 15, name: " ", image: "img/2022/th15.jpg" }
+            ]
+        },
+        2021: {
+            super: [
+                { id: 1, name: " ", image: "img/2021/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2021/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2021/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2021/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2021/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2021/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2021/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2021/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2021/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2021/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2021/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2021/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2021/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2021/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2021/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2021/th1.jpg" },
+                { id: 2, name: " ", image: "img/2021/th2.jpg" },
+                { id: 3, name: " ", image: "img/2021/th3.jpg" },
+                { id: 4, name: " ", image: "img/2021/th4.jpg" },
+                { id: 5, name: " ", image: "img/2021/th5.jpg" },
+                { id: 6, name: " ", image: "img/2021/th6.jpg" },
+                { id: 7, name: " ", image: "img/2021/th7.jpg" },
+                { id: 8, name: " ", image: "img/2021/th8.jpg" },
+                { id: 9, name: " ", image: "img/2021/th9.jpg" },
+                { id: 10, name: " ", image: "img/2021/th10.jpg" },
+                { id: 11, name: " ", image: "img/2021/th11.jpg" },
+                { id: 12, name: " ", image: "img/2021/th12.jpg" },
+                { id: 13, name: " ", image: "img/2021/th13.jpg" },
+                { id: 14, name: " ", image: "img/2021/th14.jpg" },
+                { id: 15, name: " ", image: "img/2021/th15.jpg" }
+            ]
+        },
+        2020: {
+            super: [
+                { id: 1, name: " ", image: "img/2020/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2020/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2020/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2020/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2020/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2020/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2020/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2020/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2020/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2020/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2020/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2020/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2020/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2020/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2020/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2020/th1.jpg" },
+                { id: 2, name: " ", image: "img/2020/th2.jpg" },
+                { id: 3, name: " ", image: "img/2020/th3.jpg" },
+                { id: 4, name: " ", image: "img/2020/th4.jpg" },
+                { id: 5, name: " ", image: "img/2020/th5.jpg" },
+                { id: 6, name: " ", image: "img/2020/th6.jpg" },
+                { id: 7, name: " ", image: "img/2020/th7.jpg" },
+                { id: 8, name: " ", image: "img/2020/th8.jpg" },
+                { id: 9, name: " ", image: "img/2020/th9.jpg" },
+                { id: 10, name: " ", image: "img/2020/th10.jpg" },
+                { id: 11, name: " ", image: "img/2020/th11.jpg" },
+                { id: 12, name: " ", image: "img/2020/th12.jpg" },
+                { id: 13, name: " ", image: "img/2020/th13.jpg" },
+                { id: 14, name: " ", image: "img/2020/th14.jpg" },
+                { id: 15, name: " ", image: "img/2020/th15.jpg" }
+            ]
+        },
+        2019: {
+            super: [
+                { id: 1, name: " ", image: "img/2019/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2019/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2019/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2019/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2019/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2019/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2019/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2019/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2019/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2019/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2019/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2019/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2019/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2019/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2019/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2019/th1.jpg" },
+                { id: 2, name: " ", image: "img/2019/th2.jpg" },
+                { id: 3, name: " ", image: "img/2019/th3.jpg" },
+                { id: 4, name: " ", image: "img/2019/th4.jpg" },
+                { id: 5, name: " ", image: "img/2019/th5.jpg" },
+                { id: 6, name: " ", image: "img/2019/th6.jpg" },
+                { id: 7, name: " ", image: "img/2019/th7.jpg" },
+                { id: 8, name: " ", image: "img/2019/th8.jpg" },
+                { id: 9, name: " ", image: "img/2019/th9.jpg" },
+                { id: 10, name: " ", image: "img/2019/th10.jpg" },
+                { id: 11, name: " ", image: "img/2019/th11.jpg" },
+                { id: 12, name: " ", image: "img/2019/th12.jpg" },
+                { id: 13, name: " ", image: "img/2019/th13.jpg" },
+                { id: 14, name: " ", image: "img/2019/th14.jpg" },
+                { id: 15, name: " ", image: "img/2019/th15.jpg" }
+            ]
+        },
+        2018: {
+            super: [
+                { id: 1, name: " ", image: "img/2018/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2018/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2018/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2018/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2018/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2018/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2018/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2018/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2018/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2018/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2018/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2018/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2018/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2018/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2018/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2018/th1.jpg" },
+                { id: 2, name: " ", image: "img/2018/th2.jpg" },
+                { id: 3, name: " ", image: "img/2018/th3.jpg" },
+                { id: 4, name: " ", image: "img/2018/th4.jpg" },
+                { id: 5, name: " ", image: "img/2018/th5.jpg" },
+                { id: 6, name: " ", image: "img/2018/th6.jpg" },
+                { id: 7, name: " ", image: "img/2018/th7.jpg" },
+                { id: 8, name: " ", image: "img/2018/th8.jpg" },
+                { id: 9, name: " ", image: "img/2018/th9.jpg" },
+                { id: 10, name: " ", image: "img/2018/th10.jpg" },
+                { id: 11, name: " ", image: "img/2018/th11.jpg" },
+                { id: 12, name: " ", image: "img/2018/th12.jpg" },
+                { id: 13, name: " ", image: "img/2018/th13.jpg" },
+                { id: 14, name: " ", image: "img/2018/th14.jpg" },
+                { id: 15, name: " ", image: "img/2018/th15.jpg" }
+            ]
+        },
+        2017: {
+            super: [
+                { id: 1, name: " ", image: "img/2017/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2017/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2017/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2017/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2017/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2017/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2017/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2017/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2017/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2017/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2017/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2017/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2017/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2017/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2017/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2017/th1.jpg" },
+                { id: 2, name: " ", image: "img/2017/th2.jpg" },
+                { id: 3, name: " ", image: "img/2017/th3.jpg" },
+                { id: 4, name: " ", image: "img/2017/th4.jpg" },
+                { id: 5, name: " ", image: "img/2017/th5.jpg" },
+                { id: 6, name: " ", image: "img/2017/th6.jpg" },
+                { id: 7, name: " ", image: "img/2017/th7.jpg" },
+                { id: 8, name: " ", image: "img/2017/th8.jpg" },
+                { id: 9, name: " ", image: "img/2017/th9.jpg" },
+                { id: 10, name: " ", image: "img/2017/th10.jpg" },
+                { id: 11, name: " ", image: "img/2017/th11.jpg" },
+                { id: 12, name: " ", image: "img/2017/th12.jpg" },
+                { id: 13, name: " ", image: "img/2017/th13.jpg" },
+                { id: 14, name: " ", image: "img/2017/th14.jpg" },
+                { id: 15, name: " ", image: "img/2017/th15.jpg" }
+            ]
+        },
+        2016: {
+            super: [
+                { id: 1, name: " ", image: "img/2016/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2016/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2016/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2016/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2016/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2016/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2016/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2016/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2016/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2016/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2016/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2016/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2016/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2016/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2016/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2016/th1.jpg" },
+                { id: 2, name: " ", image: "img/2016/th2.jpg" },
+                { id: 3, name: " ", image: "img/2016/th3.jpg" },
+                { id: 4, name: " ", image: "img/2016/th4.jpg" },
+                { id: 5, name: " ", image: "img/2016/th5.jpg" },
+                { id: 6, name: " ", image: "img/2016/th6.jpg" },
+                { id: 7, name: " ", image: "img/2016/th7.jpg" },
+                { id: 8, name: " ", image: "img/2016/th8.jpg" },
+                { id: 9, name: " ", image: "img/2016/th9.jpg" },
+                { id: 10, name: " ", image: "img/2016/th10.jpg" },
+                { id: 11, name: " ", image: "img/2016/th11.jpg" },
+                { id: 12, name: " ", image: "img/2016/th12.jpg" },
+                { id: 13, name: " ", image: "img/2016/th13.jpg" },
+                { id: 14, name: " ", image: "img/2016/th14.jpg" },
+                { id: 15, name: " ", image: "img/2016/th15.jpg" }
+            ]
+        },
+        2015: {
+            super: [
+                { id: 1, name: " ", image: "img/2015/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2015/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2015/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2015/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2015/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2015/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2015/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2015/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2015/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2015/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2015/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2015/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2015/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2015/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2015/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2015/th1.jpg" },
+                { id: 2, name: " ", image: "img/2015/th2.jpg" },
+                { id: 3, name: " ", image: "img/2015/th3.jpg" },
+                { id: 4, name: " ", image: "img/2015/th4.jpg" },
+                { id: 5, name: " ", image: "img/2015/th5.jpg" },
+                { id: 6, name: " ", image: "img/2015/th6.jpg" },
+                { id: 7, name: " ", image: "img/2015/th7.jpg" },
+                { id: 8, name: " ", image: "img/2015/th8.jpg" },
+                { id: 9, name: " ", image: "img/2015/th9.jpg" },
+                { id: 10, name: " ", image: "img/2015/th10.jpg" },
+                { id: 11, name: " ", image: "img/2015/th11.jpg" },
+                { id: 12, name: " ", image: "img/2015/th12.jpg" },
+                { id: 13, name: " ", image: "img/2015/th13.jpg" },
+                { id: 14, name: " ", image: "img/2015/th14.jpg" },
+                { id: 15, name: " ", image: "img/2015/th15.jpg" }
+            ]
+        },
+        2014: {
+            super: [
+                { id: 1, name: " ", image: "img/2014/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2014/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2014/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2014/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2014/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2014/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2014/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2014/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2014/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2014/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2014/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2014/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2014/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2014/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2014/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2014/th1.jpg" },
+                { id: 2, name: " ", image: "img/2014/th2.jpg" },
+                { id: 3, name: " ", image: "img/2014/th3.jpg" },
+                { id: 4, name: " ", image: "img/2014/th4.jpg" },
+                { id: 5, name: " ", image: "img/2014/th5.jpg" },
+                { id: 6, name: " ", image: "img/2014/th6.jpg" },
+                { id: 7, name: " ", image: "img/2014/th7.jpg" },
+                { id: 8, name: " ", image: "img/2014/th8.jpg" },
+                { id: 9, name: " ", image: "img/2014/th9.jpg" },
+                { id: 10, name: " ", image: "img/2014/th10.jpg" },
+                { id: 11, name: " ", image: "img/2014/th11.jpg" },
+                { id: 12, name: " ", image: "img/2014/th12.jpg" },
+                { id: 13, name: " ", image: "img/2014/th13.jpg" },
+                { id: 14, name: " ", image: "img/2014/th14.jpg" },
+                { id: 15, name: " ", image: "img/2014/th15.jpg" }
+            ]
+        },
+        2013: {
+            super: [
+                { id: 1, name: " ", image: "img/2013/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2013/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2013/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2013/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2013/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2013/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2013/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2013/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2013/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2013/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2013/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2013/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2013/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2013/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2013/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2013/th1.jpg" },
+                { id: 2, name: " ", image: "img/2013/th2.jpg" },
+                { id: 3, name: " ", image: "img/2013/th3.jpg" },
+                { id: 4, name: " ", image: "img/2013/th4.jpg" },
+                { id: 5, name: " ", image: "img/2013/th5.jpg" },
+                { id: 6, name: " ", image: "img/2013/th6.jpg" },
+                { id: 7, name: " ", image: "img/2013/th7.jpg" },
+                { id: 8, name: " ", image: "img/2013/th8.jpg" },
+                { id: 9, name: " ", image: "img/2013/th9.jpg" },
+                { id: 10, name: " ", image: "img/2013/th10.jpg" },
+                { id: 11, name: " ", image: "img/2013/th11.jpg" },
+                { id: 12, name: " ", image: "img/2013/th12.jpg" },
+                { id: 13, name: " ", image: "img/2013/th13.jpg" },
+                { id: 14, name: " ", image: "img/2013/th14.jpg" },
+                { id: 15, name: " ", image: "img/2013/th15.jpg" }
+            ]
+        },
+        2012: {
+            super: [
+                { id: 1, name: " ", image: "img/2012/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2012/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2012/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2012/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2012/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2012/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2012/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2012/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2012/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2012/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2012/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2012/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2012/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2012/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2012/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2012/th1.jpg" },
+                { id: 2, name: " ", image: "img/2012/th2.jpg" },
+                { id: 3, name: " ", image: "img/2012/th3.jpg" },
+                { id: 4, name: " ", image: "img/2012/th4.jpg" },
+                { id: 5, name: " ", image: "img/2012/th5.jpg" },
+                { id: 6, name: " ", image: "img/2012/th6.jpg" },
+                { id: 7, name: " ", image: "img/2012/th7.jpg" },
+                { id: 8, name: " ", image: "img/2012/th8.jpg" },
+                { id: 9, name: " ", image: "img/2012/th9.jpg" },
+                { id: 10, name: " ", image: "img/2012/th10.jpg" },
+                { id: 11, name: " ", image: "img/2012/th11.jpg" },
+                { id: 12, name: " ", image: "img/2012/th12.jpg" },
+                { id: 13, name: " ", image: "img/2012/th13.jpg" },
+                { id: 14, name: " ", image: "img/2012/th14.jpg" },
+                { id: 15, name: " ", image: "img/2012/th15.jpg" }
+            ]
+        },
+        2011: {
+            super: [
+                { id: 1, name: " ", image: "img/2011/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2011/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2011/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2011/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2011/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2011/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2011/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2011/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2011/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2011/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2011/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2011/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2011/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2011/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2011/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2011/th1.jpg" },
+                { id: 2, name: " ", image: "img/2011/th2.jpg" },
+                { id: 3, name: " ", image: "img/2011/th3.jpg" },
+                { id: 4, name: " ", image: "img/2011/th4.jpg" },
+                { id: 5, name: " ", image: "img/2011/th5.jpg" },
+                { id: 6, name: " ", image: "img/2011/th6.jpg" },
+                { id: 7, name: " ", image: "img/2011/th7.jpg" },
+                { id: 8, name: " ", image: "img/2011/th8.jpg" },
+                { id: 9, name: " ", image: "img/2011/th9.jpg" },
+                { id: 10, name: " ", image: "img/2011/th10.jpg" },
+                { id: 11, name: " ", image: "img/2011/th11.jpg" },
+                { id: 12, name: " ", image: "img/2011/th12.jpg" },
+                { id: 13, name: " ", image: "img/2011/th13.jpg" },
+                { id: 14, name: " ", image: "img/2011/th14.jpg" },
+                { id: 15, name: " ", image: "img/2011/th15.jpg" }
+            ]
+        },
+        2010: {
+            super: [
+                { id: 1, name: " ", image: "img/2010/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2010/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2010/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2010/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2010/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2010/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2010/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2010/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2010/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2010/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2010/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2010/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2010/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2010/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2010/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2010/th1.jpg" },
+                { id: 2, name: " ", image: "img/2010/th2.jpg" },
+                { id: 3, name: " ", image: "img/2010/th3.jpg" },
+                { id: 4, name: " ", image: "img/2010/th4.jpg" },
+                { id: 5, name: " ", image: "img/2010/th5.jpg" },
+                { id: 6, name: " ", image: "img/2010/th6.jpg" },
+                { id: 7, name: " ", image: "img/2010/th7.jpg" },
+                { id: 8, name: " ", image: "img/2010/th8.jpg" },
+                { id: 9, name: " ", image: "img/2010/th9.jpg" },
+                { id: 10, name: " ", image: "img/2010/th10.jpg" },
+                { id: 11, name: " ", image: "img/2010/th11.jpg" },
+                { id: 12, name: " ", image: "img/2010/th12.jpg" },
+                { id: 13, name: " ", image: "img/2010/th13.jpg" },
+                { id: 14, name: " ", image: "img/2010/th14.jpg" },
+                { id: 15, name: " ", image: "img/2010/th15.jpg" }
+            ]
+        },
+        2009: {
+            super: [
+                { id: 1, name: " ", image: "img/2009/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2009/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2009/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2009/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2009/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2009/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2009/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2009/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2009/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2009/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2009/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2009/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2009/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2009/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2009/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2009/th1.jpg" },
+                { id: 2, name: " ", image: "img/2009/th2.jpg" },
+                { id: 3, name: " ", image: "img/2009/th3.jpg" },
+                { id: 4, name: " ", image: "img/2009/th4.jpg" },
+                { id: 5, name: " ", image: "img/2009/th5.jpg" },
+                { id: 6, name: " ", image: "img/2009/th6.jpg" },
+                { id: 7, name: " ", image: "img/2009/th7.jpg" },
+                { id: 8, name: " ", image: "img/2009/th8.jpg" },
+                { id: 9, name: " ", image: "img/2009/th9.jpg" },
+                { id: 10, name: " ", image: "img/2009/th10.jpg" },
+                { id: 11, name: " ", image: "img/2009/th11.jpg" },
+                { id: 12, name: " ", image: "img/2009/th12.jpg" },
+                { id: 13, name: " ", image: "img/2009/th13.jpg" },
+                { id: 14, name: " ", image: "img/2009/th14.jpg" },
+                { id: 15, name: " ", image: "img/2009/th15.jpg" }
+            ]
+        },
+        2008: {
+            super: [
+                { id: 1, name: " ", image: "img/2008/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2008/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2008/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2008/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2008/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2008/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2008/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2008/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2008/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2008/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2008/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2008/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2008/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2008/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2008/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2008/th1.jpg" },
+                { id: 2, name: " ", image: "img/2008/th2.jpg" },
+                { id: 3, name: " ", image: "img/2008/th3.jpg" },
+                { id: 4, name: " ", image: "img/2008/th4.jpg" },
+                { id: 5, name: " ", image: "img/2008/th5.jpg" },
+                { id: 6, name: " ", image: "img/2008/th6.jpg" },
+                { id: 7, name: " ", image: "img/2008/th7.jpg" },
+                { id: 8, name: " ", image: "img/2008/th8.jpg" },
+                { id: 9, name: " ", image: "img/2008/th9.jpg" },
+                { id: 10, name: " ", image: "img/2008/th10.jpg" },
+                { id: 11, name: " ", image: "img/2008/th11.jpg" },
+                { id: 12, name: " ", image: "img/2008/th12.jpg" },
+                { id: 13, name: " ", image: "img/2008/th13.jpg" },
+                { id: 14, name: " ", image: "img/2008/th14.jpg" },
+                { id: 15, name: " ", image: "img/2008/th15.jpg" }
+            ]
+        },
+        2007: {
+            super: [
+                { id: 1, name: " ", image: "img/2007/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2007/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2007/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2007/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2007/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2007/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2007/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2007/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2007/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2007/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2007/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2007/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2007/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2007/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2007/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2007/th1.jpg" },
+                { id: 2, name: " ", image: "img/2007/th2.jpg" },
+                { id: 3, name: " ", image: "img/2007/th3.jpg" },
+                { id: 4, name: " ", image: "img/2007/th4.jpg" },
+                { id: 5, name: " ", image: "img/2007/th5.jpg" },
+                { id: 6, name: " ", image: "img/2007/th6.jpg" },
+                { id: 7, name: " ", image: "img/2007/th7.jpg" },
+                { id: 8, name: " ", image: "img/2007/th8.jpg" },
+                { id: 9, name: " ", image: "img/2007/th9.jpg" },
+                { id: 10, name: " ", image: "img/2007/th10.jpg" },
+                { id: 11, name: " ", image: "img/2007/th11.jpg" },
+                { id: 12, name: " ", image: "img/2007/th12.jpg" },
+                { id: 13, name: " ", image: "img/2007/th13.jpg" },
+                { id: 14, name: " ", image: "img/2007/th14.jpg" },
+                { id: 15, name: " ", image: "img/2007/th15.jpg" }
+            ]
+        },        2006: {
+            super: [
+                { id: 1, name: " ", image: "img/2006/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2006/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2006/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2006/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2006/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2006/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2006/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2006/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2006/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2006/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2006/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2006/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2006/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2006/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2006/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2006/th1.jpg" },
+                { id: 2, name: " ", image: "img/2006/th2.jpg" },
+                { id: 3, name: " ", image: "img/2006/th3.jpg" },
+                { id: 4, name: " ", image: "img/2006/th4.jpg" },
+                { id: 5, name: " ", image: "img/2006/th5.jpg" },
+                { id: 6, name: " ", image: "img/2006/th6.jpg" },
+                { id: 7, name: " ", image: "img/2006/th7.jpg" },
+                { id: 8, name: " ", image: "img/2006/th8.jpg" },
+                { id: 9, name: " ", image: "img/2006/th9.jpg" },
+                { id: 10, name: " ", image: "img/2006/th10.jpg" },
+                { id: 11, name: " ", image: "img/2006/th11.jpg" },
+                { id: 12, name: " ", image: "img/2006/th12.jpg" },
+                { id: 13, name: " ", image: "img/2006/th13.jpg" },
+                { id: 14, name: " ", image: "img/2006/th14.jpg" },
+                { id: 15, name: " ", image: "img/2006/th15.jpg" }
+            ]
+        },        2005: {
+            super: [
+                { id: 1, name: " ", image: "img/2005/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2005/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2005/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2005/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2005/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2005/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2005/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2005/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2005/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2005/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2005/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2005/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2005/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2005/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2005/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2005/th1.jpg" },
+                { id: 2, name: " ", image: "img/2005/th2.jpg" },
+                { id: 3, name: " ", image: "img/2005/th3.jpg" },
+                { id: 4, name: " ", image: "img/2005/th4.jpg" },
+                { id: 5, name: " ", image: "img/2005/th5.jpg" },
+                { id: 6, name: " ", image: "img/2005/th6.jpg" },
+                { id: 7, name: " ", image: "img/2005/th7.jpg" },
+                { id: 8, name: " ", image: "img/2005/th8.jpg" },
+                { id: 9, name: " ", image: "img/2005/th9.jpg" },
+                { id: 10, name: " ", image: "img/2005/th10.jpg" },
+                { id: 11, name: " ", image: "img/2005/th11.jpg" },
+                { id: 12, name: " ", image: "img/2005/th12.jpg" },
+                { id: 13, name: " ", image: "img/2005/th13.jpg" },
+                { id: 14, name: " ", image: "img/2005/th14.jpg" },
+                { id: 15, name: " ", image: "img/2005/th15.jpg" }
+            ]
+        },        2004: {
+            super: [
+                { id: 1, name: " ", image: "img/2004/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2004/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2004/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2004/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2004/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2004/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2004/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2004/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2004/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2004/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2004/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2004/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2004/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2004/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2004/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2004/th1.jpg" },
+                { id: 2, name: " ", image: "img/2004/th2.jpg" },
+                { id: 3, name: " ", image: "img/2004/th3.jpg" },
+                { id: 4, name: " ", image: "img/2004/th4.jpg" },
+                { id: 5, name: " ", image: "img/2004/th5.jpg" },
+                { id: 6, name: " ", image: "img/2004/th6.jpg" },
+                { id: 7, name: " ", image: "img/2004/th7.jpg" },
+                { id: 8, name: " ", image: "img/2004/th8.jpg" },
+                { id: 9, name: " ", image: "img/2004/th9.jpg" },
+                { id: 10, name: " ", image: "img/2004/th10.jpg" },
+                { id: 11, name: " ", image: "img/2004/th11.jpg" },
+                { id: 12, name: " ", image: "img/2004/th12.jpg" },
+                { id: 13, name: " ", image: "img/2004/th13.jpg" },
+                { id: 14, name: " ", image: "img/2004/th14.jpg" },
+                { id: 15, name: " ", image: "img/2004/th15.jpg" }
+            ]
+        },        2003: {
+            super: [
+                { id: 1, name: " ", image: "img/2003/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2003/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2003/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2003/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2003/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2003/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2003/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2003/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2003/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2003/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2003/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2003/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2003/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2003/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2003/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2003/th1.jpg" },
+                { id: 2, name: " ", image: "img/2003/th2.jpg" },
+                { id: 3, name: " ", image: "img/2003/th3.jpg" },
+                { id: 4, name: " ", image: "img/2003/th4.jpg" },
+                { id: 5, name: " ", image: "img/2003/th5.jpg" },
+                { id: 6, name: " ", image: "img/2003/th6.jpg" },
+                { id: 7, name: " ", image: "img/2003/th7.jpg" },
+                { id: 8, name: " ", image: "img/2003/th8.jpg" },
+                { id: 9, name: " ", image: "img/2003/th9.jpg" },
+                { id: 10, name: " ", image: "img/2003/th10.jpg" },
+                { id: 11, name: " ", image: "img/2003/th11.jpg" },
+                { id: 12, name: " ", image: "img/2003/th12.jpg" },
+                { id: 13, name: " ", image: "img/2003/th13.jpg" },
+                { id: 14, name: " ", image: "img/2003/th14.jpg" },
+                { id: 15, name: " ", image: "img/2003/th15.jpg" }
+            ]
+        },        2002: {
+            super: [
+                { id: 1, name: " ", image: "img/2002/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2002/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2002/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2002/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2002/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2002/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2002/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2002/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2002/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2002/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2002/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2002/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2002/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2002/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2002/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2002/th1.jpg" },
+                { id: 2, name: " ", image: "img/2002/th2.jpg" },
+                { id: 3, name: " ", image: "img/2002/th3.jpg" },
+                { id: 4, name: " ", image: "img/2002/th4.jpg" },
+                { id: 5, name: " ", image: "img/2002/th5.jpg" },
+                { id: 6, name: " ", image: "img/2002/th6.jpg" },
+                { id: 7, name: " ", image: "img/2002/th7.jpg" },
+                { id: 8, name: " ", image: "img/2002/th8.jpg" },
+                { id: 9, name: " ", image: "img/2002/th9.jpg" },
+                { id: 10, name: " ", image: "img/2002/th10.jpg" },
+                { id: 11, name: " ", image: "img/2002/th11.jpg" },
+                { id: 12, name: " ", image: "img/2002/th12.jpg" },
+                { id: 13, name: " ", image: "img/2002/th13.jpg" },
+                { id: 14, name: " ", image: "img/2002/th14.jpg" },
+                { id: 15, name: " ", image: "img/2002/th15.jpg" }
+            ]
+        },        2001: {
+            super: [
+                { id: 1, name: " ", image: "img/2001/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2001/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2001/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2001/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2001/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2001/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2001/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2001/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2001/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2001/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2001/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2001/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2001/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2001/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2001/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2001/th1.jpg" },
+                { id: 2, name: " ", image: "img/2001/th2.jpg" },
+                { id: 3, name: " ", image: "img/2001/th3.jpg" },
+                { id: 4, name: " ", image: "img/2001/th4.jpg" },
+                { id: 5, name: " ", image: "img/2001/th5.jpg" },
+                { id: 6, name: " ", image: "img/2001/th6.jpg" },
+                { id: 7, name: " ", image: "img/2001/th7.jpg" },
+                { id: 8, name: " ", image: "img/2001/th8.jpg" },
+                { id: 9, name: " ", image: "img/2001/th9.jpg" },
+                { id: 10, name: " ", image: "img/2001/th10.jpg" },
+                { id: 11, name: " ", image: "img/2001/th11.jpg" },
+                { id: 12, name: " ", image: "img/2001/th12.jpg" },
+                { id: 13, name: " ", image: "img/2001/th13.jpg" },
+                { id: 14, name: " ", image: "img/2001/th14.jpg" },
+                { id: 15, name: " ", image: "img/2001/th15.jpg" }
+            ]
+        },        2000: {
+            super: [
+                { id: 1, name: " ", image: "img/2000/sth1.jpg" },
+                { id: 2, name: " ", image: "img/2000/sth2.jpg" },
+                { id: 3, name: " ", image: "img/2000/sth3.jpg" },
+                { id: 4, name: " ", image: "img/2000/sth4.jpg" },
+                { id: 5, name: " ", image: "img/2000/sth5.jpg" },
+                { id: 6, name: " ", image: "img/2000/sth6.jpg" },
+                { id: 7, name: " ", image: "img/2000/sth7.jpg" },
+                { id: 8, name: " ", image: "img/2000/sth8.jpg" },
+                { id: 9, name: " ", image: "img/2000/sth9.jpg" },
+                { id: 10, name: " ", image: "img/2000/sth10.jpg" },
+                { id: 11, name: " ", image: "img/2000/sth11.jpg" },
+                { id: 12, name: " ", image: "img/2000/sth12.jpg" },
+                { id: 13, name: " ", image: "img/2000/sth13.jpg" },
+                { id: 14, name: " ", image: "img/2000/sth14.jpg" },
+                { id: 15, name: " ", image: "img/2000/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/2000/th1.jpg" },
+                { id: 2, name: " ", image: "img/2000/th2.jpg" },
+                { id: 3, name: " ", image: "img/2000/th3.jpg" },
+                { id: 4, name: " ", image: "img/2000/th4.jpg" },
+                { id: 5, name: " ", image: "img/2000/th5.jpg" },
+                { id: 6, name: " ", image: "img/2000/th6.jpg" },
+                { id: 7, name: " ", image: "img/2000/th7.jpg" },
+                { id: 8, name: " ", image: "img/2000/th8.jpg" },
+                { id: 9, name: " ", image: "img/2000/th9.jpg" },
+                { id: 10, name: " ", image: "img/2000/th10.jpg" },
+                { id: 11, name: " ", image: "img/2000/th11.jpg" },
+                { id: 12, name: " ", image: "img/2000/th12.jpg" },
+                { id: 13, name: " ", image: "img/2000/th13.jpg" },
+                { id: 14, name: " ", image: "img/2000/th14.jpg" },
+                { id: 15, name: " ", image: "img/2000/th15.jpg" }
+            ]
+        },        1999: {
+            super: [
+                { id: 1, name: " ", image: "img/1999/sth1.jpg" },
+                { id: 2, name: " ", image: "img/1999/sth2.jpg" },
+                { id: 3, name: " ", image: "img/1999/sth3.jpg" },
+                { id: 4, name: " ", image: "img/1999/sth4.jpg" },
+                { id: 5, name: " ", image: "img/1999/sth5.jpg" },
+                { id: 6, name: " ", image: "img/1999/sth6.jpg" },
+                { id: 7, name: " ", image: "img/1999/sth7.jpg" },
+                { id: 8, name: " ", image: "img/1999/sth8.jpg" },
+                { id: 9, name: " ", image: "img/1999/sth9.jpg" },
+                { id: 10, name: " ", image: "img/1999/sth10.jpg" },
+                { id: 11, name: " ", image: "img/1999/sth11.jpg" },
+                { id: 12, name: " ", image: "img/1999/sth12.jpg" },
+                { id: 13, name: " ", image: "img/1999/sth13.jpg" },
+                { id: 14, name: " ", image: "img/1999/sth14.jpg" },
+                { id: 15, name: " ", image: "img/1999/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/1999/th1.jpg" },
+                { id: 2, name: " ", image: "img/1999/th2.jpg" },
+                { id: 3, name: " ", image: "img/1999/th3.jpg" },
+                { id: 4, name: " ", image: "img/1999/th4.jpg" },
+                { id: 5, name: " ", image: "img/1999/th5.jpg" },
+                { id: 6, name: " ", image: "img/1999/th6.jpg" },
+                { id: 7, name: " ", image: "img/1999/th7.jpg" },
+                { id: 8, name: " ", image: "img/1999/th8.jpg" },
+                { id: 9, name: " ", image: "img/1999/th9.jpg" },
+                { id: 10, name: " ", image: "img/1999/th10.jpg" },
+                { id: 11, name: " ", image: "img/1999/th11.jpg" },
+                { id: 12, name: " ", image: "img/1999/th12.jpg" },
+                { id: 13, name: " ", image: "img/1999/th13.jpg" },
+                { id: 14, name: " ", image: "img/1999/th14.jpg" },
+                { id: 15, name: " ", image: "img/1999/th15.jpg" }
+            ]
+        },        1998: {
+            super: [
+                { id: 1, name: " ", image: "img/1998/sth1.jpg" },
+                { id: 2, name: " ", image: "img/1998/sth2.jpg" },
+                { id: 3, name: " ", image: "img/1998/sth3.jpg" },
+                { id: 4, name: " ", image: "img/1998/sth4.jpg" },
+                { id: 5, name: " ", image: "img/1998/sth5.jpg" },
+                { id: 6, name: " ", image: "img/1998/sth6.jpg" },
+                { id: 7, name: " ", image: "img/1998/sth7.jpg" },
+                { id: 8, name: " ", image: "img/1998/sth8.jpg" },
+                { id: 9, name: " ", image: "img/1998/sth9.jpg" },
+                { id: 10, name: " ", image: "img/1998/sth10.jpg" },
+                { id: 11, name: " ", image: "img/1998/sth11.jpg" },
+                { id: 12, name: " ", image: "img/1998/sth12.jpg" },
+                { id: 13, name: " ", image: "img/1998/sth13.jpg" },
+                { id: 14, name: " ", image: "img/1998/sth14.jpg" },
+                { id: 15, name: " ", image: "img/1998/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/1998/th1.jpg" },
+                { id: 2, name: " ", image: "img/1998/th2.jpg" },
+                { id: 3, name: " ", image: "img/1998/th3.jpg" },
+                { id: 4, name: " ", image: "img/1998/th4.jpg" },
+                { id: 5, name: " ", image: "img/1998/th5.jpg" },
+                { id: 6, name: " ", image: "img/1998/th6.jpg" },
+                { id: 7, name: " ", image: "img/1998/th7.jpg" },
+                { id: 8, name: " ", image: "img/1998/th8.jpg" },
+                { id: 9, name: " ", image: "img/1998/th9.jpg" },
+                { id: 10, name: " ", image: "img/1998/th10.jpg" },
+                { id: 11, name: " ", image: "img/1998/th11.jpg" },
+                { id: 12, name: " ", image: "img/1998/th12.jpg" },
+                { id: 13, name: " ", image: "img/1998/th13.jpg" },
+                { id: 14, name: " ", image: "img/1998/th14.jpg" },
+                { id: 15, name: " ", image: "img/1998/th15.jpg" }
+            ]
+        },        1997: {
+            super: [
+                { id: 1, name: " ", image: "img/1997/sth1.jpg" },
+                { id: 2, name: " ", image: "img/1997/sth2.jpg" },
+                { id: 3, name: " ", image: "img/1997/sth3.jpg" },
+                { id: 4, name: " ", image: "img/1997/sth4.jpg" },
+                { id: 5, name: " ", image: "img/1997/sth5.jpg" },
+                { id: 6, name: " ", image: "img/1997/sth6.jpg" },
+                { id: 7, name: " ", image: "img/1997/sth7.jpg" },
+                { id: 8, name: " ", image: "img/1997/sth8.jpg" },
+                { id: 9, name: " ", image: "img/1997/sth9.jpg" },
+                { id: 10, name: " ", image: "img/1997/sth10.jpg" },
+                { id: 11, name: " ", image: "img/1997/sth11.jpg" },
+                { id: 12, name: " ", image: "img/1997/sth12.jpg" },
+                { id: 13, name: " ", image: "img/1997/sth13.jpg" },
+                { id: 14, name: " ", image: "img/1997/sth14.jpg" },
+                { id: 15, name: " ", image: "img/1997/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/1997/th1.jpg" },
+                { id: 2, name: " ", image: "img/1997/th2.jpg" },
+                { id: 3, name: " ", image: "img/1997/th3.jpg" },
+                { id: 4, name: " ", image: "img/1997/th4.jpg" },
+                { id: 5, name: " ", image: "img/1997/th5.jpg" },
+                { id: 6, name: " ", image: "img/1997/th6.jpg" },
+                { id: 7, name: " ", image: "img/1997/th7.jpg" },
+                { id: 8, name: " ", image: "img/1997/th8.jpg" },
+                { id: 9, name: " ", image: "img/1997/th9.jpg" },
+                { id: 10, name: " ", image: "img/1997/th10.jpg" },
+                { id: 11, name: " ", image: "img/1997/th11.jpg" },
+                { id: 12, name: " ", image: "img/1997/th12.jpg" },
+                { id: 13, name: " ", image: "img/1997/th13.jpg" },
+                { id: 14, name: " ", image: "img/1997/th14.jpg" },
+                { id: 15, name: " ", image: "img/1997/th15.jpg" }
+            ]
+        },        1996: {
+            super: [
+                { id: 1, name: " ", image: "img/1996/sth1.jpg" },
+                { id: 2, name: " ", image: "img/1996/sth2.jpg" },
+                { id: 3, name: " ", image: "img/1996/sth3.jpg" },
+                { id: 4, name: " ", image: "img/1996/sth4.jpg" },
+                { id: 5, name: " ", image: "img/1996/sth5.jpg" },
+                { id: 6, name: " ", image: "img/1996/sth6.jpg" },
+                { id: 7, name: " ", image: "img/1996/sth7.jpg" },
+                { id: 8, name: " ", image: "img/1996/sth8.jpg" },
+                { id: 9, name: " ", image: "img/1996/sth9.jpg" },
+                { id: 10, name: " ", image: "img/1996/sth10.jpg" },
+                { id: 11, name: " ", image: "img/1996/sth11.jpg" },
+                { id: 12, name: " ", image: "img/1996/sth12.jpg" },
+                { id: 13, name: " ", image: "img/1996/sth13.jpg" },
+                { id: 14, name: " ", image: "img/1996/sth14.jpg" },
+                { id: 15, name: " ", image: "img/1996/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/1996/th1.jpg" },
+                { id: 2, name: " ", image: "img/1996/th2.jpg" },
+                { id: 3, name: " ", image: "img/1996/th3.jpg" },
+                { id: 4, name: " ", image: "img/1996/th4.jpg" },
+                { id: 5, name: " ", image: "img/1996/th5.jpg" },
+                { id: 6, name: " ", image: "img/1996/th6.jpg" },
+                { id: 7, name: " ", image: "img/1996/th7.jpg" },
+                { id: 8, name: " ", image: "img/1996/th8.jpg" },
+                { id: 9, name: " ", image: "img/1996/th9.jpg" },
+                { id: 10, name: " ", image: "img/1996/th10.jpg" },
+                { id: 11, name: " ", image: "img/1996/th11.jpg" },
+                { id: 12, name: " ", image: "img/1996/th12.jpg" },
+                { id: 13, name: " ", image: "img/1996/th13.jpg" },
+                { id: 14, name: " ", image: "img/1996/th14.jpg" },
+                { id: 15, name: " ", image: "img/1996/th15.jpg" }
+            ]
+        },        1995: {
+            super: [
+                { id: 1, name: " ", image: "img/1995/sth1.jpg" },
+                { id: 2, name: " ", image: "img/1995/sth2.jpg" },
+                { id: 3, name: " ", image: "img/1995/sth3.jpg" },
+                { id: 4, name: " ", image: "img/1995/sth4.jpg" },
+                { id: 5, name: " ", image: "img/1995/sth5.jpg" },
+                { id: 6, name: " ", image: "img/1995/sth6.jpg" },
+                { id: 7, name: " ", image: "img/1995/sth7.jpg" },
+                { id: 8, name: " ", image: "img/1995/sth8.jpg" },
+                { id: 9, name: " ", image: "img/1995/sth9.jpg" },
+                { id: 10, name: " ", image: "img/1995/sth10.jpg" },
+                { id: 11, name: " ", image: "img/1995/sth11.jpg" },
+                { id: 12, name: " ", image: "img/1995/sth12.jpg" },
+                { id: 13, name: " ", image: "img/1995/sth13.jpg" },
+                { id: 14, name: " ", image: "img/1995/sth14.jpg" },
+                { id: 15, name: " ", image: "img/1995/sth15.jpg" },
+            ],
+            regular: [
+                { id: 1, name: " ", image: "img/1995/th1.jpg" },
+                { id: 2, name: " ", image: "img/1995/th2.jpg" },
+                { id: 3, name: " ", image: "img/1995/th3.jpg" },
+                { id: 4, name: " ", image: "img/1995/th4.jpg" },
+                { id: 5, name: " ", image: "img/1995/th5.jpg" },
+                { id: 6, name: " ", image: "img/1995/th6.jpg" },
+                { id: 7, name: " ", image: "img/1995/th7.jpg" },
+                { id: 8, name: " ", image: "img/1995/th8.jpg" },
+                { id: 9, name: " ", image: "img/1995/th9.jpg" },
+                { id: 10, name: " ", image: "img/1995/th10.jpg" },
+                { id: 11, name: " ", image: "img/1995/th11.jpg" },
+                { id: 12, name: " ", image: "img/1995/th12.jpg" },
+                { id: 13, name: " ", image: "img/1995/th13.jpg" },
+                { id: 14, name: " ", image: "img/1995/th14.jpg" },
+                { id: 15, name: " ", image: "img/1995/th15.jpg" }
+            ]
+        },        
+    };
+
+    var yearsList = [];
+    for (var i = 0; i <= 30; i++) {
+        yearsList.push(2025 - i);
+    }
+
+    var LOCAL_STORAGE_KEY = "hotWheelsCollection";
+
+    function getInitialCollection() {
+        try {
+            var stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+            return stored ? JSON.parse(stored) : {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function App() {
+        var stateSelectedYear = useState(null);
+        var selectedYear = stateSelectedYear[0];
+        var setSelectedYear = stateSelectedYear[1];
+
+        var stateCollection = useState(getInitialCollection);
+        var collection = stateCollection[0];
+        var setCollection = stateCollection[1];
+
+        var summaryStats = useMemo(function() {
+            var totalAvailable = 0;
+            var totalCollected = 0;
+
+            var years = Object.keys(initialMiniaturesByYear);
+            for (var i = 0; i < years.length; i++) {
+                var year = years[i];
+                var yearData = initialMiniaturesByYear[year];
+                var superCount = yearData.super ? yearData.super.length : 0;
+                var regularCount = yearData.regular ? yearData.regular.length : 0;
+                totalAvailable += superCount + regularCount;
+
+                var yearCollection = collection[year] || {};
+                var superOwned = yearCollection.super ? Object.keys(yearCollection.super).length : 0;
+                var regularOwned = yearCollection.regular ? Object.keys(yearCollection.regular).length : 0;
+                totalCollected += superOwned + regularOwned;
+            }
+
+            return { totalAvailable: totalAvailable, totalCollected: totalCollected };
+        }, [collection]);
+
+        var toggleMiniature = useCallback(function(year, type, id) {
+            setCollection(function(prev) {
+                var updated = JSON.parse(JSON.stringify(prev));
+                if (!updated[year]) updated[year] = {};
+                if (!updated[year][type]) updated[year][type] = {};
+
+                if (updated[year][type][id]) {
+                    delete updated[year][type][id];
+                } else {
+                    updated[year][type][id] = true;
+                }
+
+                if (Object.keys(updated[year][type]).length === 0) delete updated[year][type];
+                if (Object.keys(updated[year]).length === 0) delete updated[year];
+
+                try {
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+                } catch (e) {
+                    console.error('Erro ao salvar:', e);
+                }
+
+                return updated;
+            });
+        }, []);
+
+
+        // =========================================================================
+        // NOVAS FUNÇÕES DE NAVEGAÇÃO E HISTÓRICO
+        // =========================================================================
+
+        // Função para navegar para o detalhe e atualizar o histórico do navegador
+        var navigateToYear = useCallback(function(year, type) {
+            var newState = { year: year, type: type };
+            // Adiciona um estado ao histórico e muda a URL hash
+            window.history.pushState(newState, '', "#" + year + "-" + type);
+            setSelectedYear({ year: year, type: type });
+        }, [setSelectedYear]);
+
+        // Função para voltar usando o histórico do navegador
+        var handleGoBack = useCallback(function() {
+            window.history.back();
+        }, []);
+
+        // Hook para lidar com o botão de voltar do navegador (popstate)
+        useEffect(function() {
+            var handlePopState = function(event) {
+                var state = event.state;
+                
+                // Se o usuário clica em "Voltar" e chega no estado inicial (sem hash ou sem estado)
+                if (window.location.hash === '' || !state) {
+                     setSelectedYear(null);
+                } else if (state && state.year && state.type) {
+                    // Se o estado do histórico tem year e type (navegação de volta para outro ano/tipo)
+                    setSelectedYear({ year: state.year, type: state.type });
+                }
+            };
+            
+            // Lidar com o carregamento inicial da página se houver um hash na URL
+            var initialHash = window.location.hash;
+            var match = initialHash.match(/^#(\d{4})-(super|regular)$/);
+            if (match) {
+                 var year = match[1];
+                 var type = match[2];
+                 setSelectedYear({ year: year, type: type });
+                 // Substitui o estado inicial para que o popstate funcione corretamente no primeiro "Voltar"
+                 window.history.replaceState({ year: year, type: type }, '', initialHash);
+            } else {
+                 // Garante que o estado inicial é null e que o histórico está limpo
+                 window.history.replaceState(null, '', window.location.pathname);
+            }
+            
+            window.addEventListener('popstate', handlePopState);
+            return function() {
+                window.removeEventListener('popstate', handlePopState);
+            };
+        }, []);
+        
+        // =========================================================================
+        // FIM DAS NOVAS FUNÇÕES
+        // =========================================================================
+
+
+        if (!selectedYear) {
+            return createElement(
+                'div',
+                { 
+                    className: "min-h-screen bg-cover bg-center flex flex-col items-center justify-start text-white p-4",
+                    style: { backgroundImage: "url('img/alemed.png')", backgroundAttachment: "fixed" }
+                },
+                createElement(
+                    'div',
+                    { className: "relative bg-black/70 w-full h-full flex flex-col items-center justify-start p-6 rounded-xl max-w-6xl mx-auto shadow-2xl min-h-[90vh] md:min-h-[95vh]" },
+                    createElement(
+                        'div',
+                        { className: "w-full text-center mt-12 md:mt-0" },
+                        createElement('h1', { className: "text-4xl font-extrabold text-center mb-4 text-purple-400" }, "Coleção Hot Wheels T-Hunt"),
+                        createElement(
+                            'div',
+                            { className: "bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg p-4 shadow-lg text-white w-full max-w-sm mx-auto my-4 md:absolute md:top-6 md:right-6 md:my-0 md:w-72 md:max-w-none md:z-10" },
+                            createElement('h3', { className: "text-base md:text-lg font-bold mb-3 text-purple-300" }, "Resumo da Coleção"),
+                            createElement(
+                                'div',
+                                { className: "space-y-2 text-xs md:text-sm" },
+                                createElement('div', { className: "flex justify-between" },
+                                    createElement('span', { className: "opacity-90" }, "Minis Cadastradas:"),
+                                    createElement('span', { className: "font-semibold" }, summaryStats.totalAvailable)
+                                ),
+                                createElement('div', { className: "flex justify-between" },
+                                    createElement('span', { className: "opacity-90" }, "Minis que Tenho:"),
+                                    createElement('span', { className: "font-semibold text-green-300" }, summaryStats.totalCollected)
+                                )
+                            )
+                        ),
+                        createElement('p', { className: "mb-8 text-center text-gray-300 max-w-lg mx-auto" }, "Selecione o ano e a categoria para visualizar sua coleção.")
+                    ),
+                    createElement(
+                        'div',
+                        { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full max-w-4xl" },
+                        yearsList.map(function(year) {
+                            var yearData = initialMiniaturesByYear[year] || {};
+                            var collectionData = collection[year] || {};
+                            var superCount = yearData.super ? yearData.super.length : 0;
+                            var regularCount = yearData.regular ? yearData.regular.length : 0;
+                            var superOwned = collectionData.super ? Object.keys(collectionData.super).length : 0;
+                            var regularOwned = collectionData.regular ? Object.keys(collectionData.regular).length : 0;
+
+                            return createElement(
+                                'div',
+                                { key: year, className: "bg-white/10 shadow-lg rounded-xl p-3 flex flex-col items-center border border-purple-500/50 card" },
+                                createElement('h3', { className: "text-xl font-bold mb-3 text-purple-300" }, year),
+                                createElement(
+                                    'div',
+                                    { className: "space-y-3 w-full" },
+                                    createElement(
+                                        'button',
+                                        {
+                                            onClick: function() { navigateToYear(year, "super"); }, // MODIFICADO
+                                            className: "w-full bg-yellow-200 hover:bg-yellow-500 active:scale-95 text-black rounded-lg py-2 text-sm font-semibold transition flex justify-center items-center"
+                                        },
+                                        "SUPER T-HUNT",
+                                        createElement('span', { className: "ml-4 font-bold" }, superOwned + " / " + superCount)
+                                    ),
+                                    createElement(
+                                        'button',
+                                        {
+                                            onClick: function() { navigateToYear(year, "regular"); }, // MODIFICADO
+                                            className: "w-full bg-gray-400 hover:bg-gray-500 active:scale-95 text-black rounded-lg py-2 text-sm font-semibold transition flex justify-center items-center"
+                                        },
+                                        "REGULAR T-HUNT",
+                                        createElement('span', { className: "ml-4 font-bold" }, regularOwned + " / " + regularCount)
+                                    )
+                                )
+                            );
+                        })
+                    )
+                )
+            );
+        }
+
+        // --- INÍCIO DA VIEW DE DETALHE (O código problemático foi removido daqui) ---
+        var year = selectedYear.year;
+        var type = selectedYear.type;
+        var miniatures = initialMiniaturesByYear[year] && initialMiniaturesByYear[year][type] ? initialMiniaturesByYear[year][type] : [];
+        var currentCollection = collection[year] && collection[year][type] ? collection[year][type] : {};
+        var titleText = type === "super" ? "T-HUNT SUPER" : "T-HUNT REGULAR";
+
+        return createElement(
+            'div',
+            { 
+                className: "min-h-screen bg-cover bg-center flex flex-col items-center justify-start text-white p-4",
+                style: { backgroundImage: "url('img/alemed.png')", backgroundAttachment: "fixed" }
+            },
+            createElement(
+                'div',
+                { className: "relative bg-black/70 w-full h-full flex flex-col items-center justify-start p-6 rounded-xl max-w-6xl mx-auto shadow-2xl min-h-[90vh] md:min-h-[95vh]" },
+                createElement(
+                    'button',
+                    {
+                        onClick: handleGoBack, // MODIFICADO: Usa a função do histórico do navegador
+                        className: "flex items-center gap-2 px-4 py-2 text-sm bg-purple-600 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-700 active:scale-95 transition mb-6 self-start"
+                    },
+                    "← Voltar"
+                ),
+                createElement('h2', { className: "text-4xl font-extrabold text-purple-400 mb-6 text-center" }, "Coleção " + year + " - " + titleText),
+                miniatures.length === 0 
+                    ? createElement('p', { className: "text-gray-200" }, "Nenhuma miniatura cadastrada.")
+                    : createElement(
+                        'div',
+                        { className: "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full" },
+                        miniatures.map(function(mini) {
+                            var isCollected = currentCollection[mini.id];
+                            return createElement(
+                                'div',
+                                {
+                                    key: mini.id,
+                                    className: "bg-white shadow-xl rounded-xl p-3 flex flex-col items-center justify-between card " + (isCollected ? "collected-card" : "border border-gray-200")
+                                },
+                                createElement(
+                                    'div',
+                                    { className: "w-full h-[120px] bg-gray-200 rounded-lg mb-2 flex items-center justify-center overflow-hidden" },
+                                    createElement('img', {
+                                        src: mini.image,
+                                        alt: mini.name,
+                                        className: "object-contain w-full h-full rounded-lg",
+                                        onError: function(e) {
+                                            e.target.onerror = null;
+                                            e.target.src = "https://placehold.co/225x120/f3f4f6/333?text=IMAGEM+NAO+ENCONTRADA";
+                                        }
+                                    })
+                                ),
+                                createElement('p', { className: "text-gray-800 text-xs sm:text-sm font-semibold text-center mt-1 mb-2" }, mini.name),
+                                createElement(
+                                    'label',
+                                    {
+                                        onClick: function() { toggleMiniature(year, type, mini.id); },
+                                        className: "flex items-center justify-center gap-1 text-gray-800 text-sm font-medium cursor-pointer"
+                                    },
+                                    createElement('input', {
+                                        type: "checkbox",
+                                        checked: isCollected || false,
+                                        onChange: function() {},
+                                        className: "w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                                    }),
+                                    "Tenho"
+                                )
+                            );
+                        })
+                    )
+            )
+        );
+    }
+
+    var root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(createElement(App));
+})();
+</script>
+
+</body>
+</html>
