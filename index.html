@@ -53,7 +53,7 @@
     var useState = React.useState;
     var useCallback = React.useCallback;
     var useMemo = React.useMemo;
-    var useEffect = React.useEffect; // Adicionado useEffect
+    var useEffect = React.useEffect;
     var createElement = React.createElement;
 
     var initialMiniaturesByYear = {
@@ -685,7 +685,6 @@
                 { id: 10, name: " ", image: "img/2008/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2008/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2008/sth12.jpg" },
-
             ],
             regular: [
                 { id: 1, name: " ", image: "img/2008/th01.jpg" },
@@ -699,8 +698,7 @@
                 { id: 9, name: " ", image: "img/2008/th09.jpg" },
                 { id: 10, name: " ", image: "img/2008/th10.jpg" },
                 { id: 11, name: " ", image: "img/2008/th11.jpg" },
-                { id: 12, name: " ", image: "img/2008/th12.jpg" },
-
+                { id: 12, name: " ", image: "img/2008/th12.jpg" }
             ]
         },
         2007: {
@@ -716,7 +714,7 @@
                 { id: 9, name: " ", image: "img/2007/sth09.jpg" },
                 { id: 10, name: " ", image: "img/2007/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2007/sth11.jpg" },
-
+                { id: 12, name: " ", image: "img/2007/sth12.jpg" },
             ],
             regular: [
                 { id: 1, name: " ", image: "img/2007/th01.jpg" },
@@ -730,10 +728,10 @@
                 { id: 9, name: " ", image: "img/2007/th09.jpg" },
                 { id: 10, name: " ", image: "img/2007/th10.jpg" },
                 { id: 11, name: " ", image: "img/2007/th11.jpg" },
-                { id: 12, name: " ", image: "img/2007/th12.jpg" },
-
+                { id: 12, name: " ", image: "img/2007/th12.jpg" }
             ]
-        },        2006: {
+        },
+        2006: {
             super: [
                 { id: 1, name: " ", image: "img/2006/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2006/sth02.jpg" },
@@ -747,10 +745,10 @@
                 { id: 10, name: " ", image: "img/2006/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2006/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2006/sth12.jpg" },
-
             ],
-
-        },        2005: {
+            // REGULAR T-HUNT não existe para 2006
+        },
+        2005: {
             super: [
                 { id: 1, name: " ", image: "img/2005/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2005/sth02.jpg" },
@@ -764,10 +762,9 @@
                 { id: 10, name: " ", image: "img/2005/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2005/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2005/sth12.jpg" },
-                { id: 13, name: " ", image: "img/2005/sth13.jpg" },
             ],
-
-        },        2004: {
+        },
+        2004: {
             super: [
                 { id: 1, name: " ", image: "img/2004/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2004/sth02.jpg" },
@@ -781,10 +778,9 @@
                 { id: 10, name: " ", image: "img/2004/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2004/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2004/sth12.jpg" },
-
             ],
-
-        },        2003: {
+        },
+        2003: {
             super: [
                 { id: 1, name: " ", image: "img/2003/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2003/sth02.jpg" },
@@ -798,10 +794,9 @@
                 { id: 10, name: " ", image: "img/2003/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2003/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2003/sth12.jpg" },
-
             ],
-
-        },        2002: {
+        },
+        2002: {
             super: [
                 { id: 1, name: " ", image: "img/2002/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2002/sth02.jpg" },
@@ -815,10 +810,9 @@
                 { id: 10, name: " ", image: "img/2002/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2002/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2002/sth12.jpg" },
-
             ],
-
-        },        2001: {
+        },
+        2001: {
             super: [
                 { id: 1, name: " ", image: "img/2001/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2001/sth02.jpg" },
@@ -832,10 +826,9 @@
                 { id: 10, name: " ", image: "img/2001/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2001/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2001/sth12.jpg" },
-
             ],
-
-        },        2000: {
+        },
+        2000: {
             super: [
                 { id: 1, name: " ", image: "img/2000/sth01.jpg" },
                 { id: 2, name: " ", image: "img/2000/sth02.jpg" },
@@ -849,10 +842,9 @@
                 { id: 10, name: " ", image: "img/2000/sth10.jpg" },
                 { id: 11, name: " ", image: "img/2000/sth11.jpg" },
                 { id: 12, name: " ", image: "img/2000/sth12.jpg" },
-
             ],
-
-        },        1999: {
+        },
+        1999: {
             super: [
                 { id: 1, name: " ", image: "img/1999/sth01.jpg" },
                 { id: 2, name: " ", image: "img/1999/sth02.jpg" },
@@ -866,10 +858,9 @@
                 { id: 10, name: " ", image: "img/1999/sth10.jpg" },
                 { id: 11, name: " ", image: "img/1999/sth11.jpg" },
                 { id: 12, name: " ", image: "img/1999/sth12.jpg" },
-
             ],
-
-        },        1998: {
+        },
+        1998: {
             super: [
                 { id: 1, name: " ", image: "img/1998/sth01.jpg" },
                 { id: 2, name: " ", image: "img/1998/sth02.jpg" },
@@ -883,10 +874,9 @@
                 { id: 10, name: " ", image: "img/1998/sth10.jpg" },
                 { id: 11, name: " ", image: "img/1998/sth11.jpg" },
                 { id: 12, name: " ", image: "img/1998/sth12.jpg" },
-
             ],
-  
-        },        1997: {
+        },
+        1997: {
             super: [
                 { id: 1, name: " ", image: "img/1997/sth01.jpg" },
                 { id: 2, name: " ", image: "img/1997/sth02.jpg" },
@@ -900,10 +890,9 @@
                 { id: 10, name: " ", image: "img/1997/sth10.jpg" },
                 { id: 11, name: " ", image: "img/1997/sth11.jpg" },
                 { id: 12, name: " ", image: "img/1997/sth12.jpg" },
-
             ],
-
-        },        1996: {
+        },
+        1996: {
             super: [
                 { id: 1, name: " ", image: "img/1996/sth01.jpg" },
                 { id: 2, name: " ", image: "img/1996/sth02.jpg" },
@@ -917,10 +906,9 @@
                 { id: 10, name: " ", image: "img/1996/sth10.jpg" },
                 { id: 11, name: " ", image: "img/1996/sth11.jpg" },
                 { id: 12, name: " ", image: "img/1996/sth12.jpg" },
-
             ],
-
-        },        1995: {
+        },
+        1995: {
             super: [
                 { id: 1, name: " ", image: "img/1995/sth01.jpg" },
                 { id: 2, name: " ", image: "img/1995/sth02.jpg" },
@@ -934,18 +922,11 @@
                 { id: 10, name: " ", image: "img/1995/sth10.jpg" },
                 { id: 11, name: " ", image: "img/1995/sth11.jpg" },
                 { id: 12, name: " ", image: "img/1995/sth12.jpg" },
-
             ],
-
-        },        
+        }
     };
 
-    var yearsList = [];
-    for (var i = 0; i <= 30; i++) {
-        yearsList.push(2025 - i);
-    }
-
-    var LOCAL_STORAGE_KEY = "hotWheelsCollection";
+    var LOCAL_STORAGE_KEY = 'hotwheels_thunt_collection';
 
     function getInitialCollection() {
         try {
@@ -960,29 +941,32 @@
         var stateSelectedYear = useState(null);
         var selectedYear = stateSelectedYear[0];
         var setSelectedYear = stateSelectedYear[1];
-
         var stateCollection = useState(getInitialCollection);
         var collection = stateCollection[0];
         var setCollection = stateCollection[1];
+        
+        // Define a lista fixa e ordenada de anos (2025 a 1995)
+        var orderedYears = useMemo(function() {
+            // Obter as chaves, converter para número, ordenar em ordem decrescente, e converter de volta para string
+            return Object.keys(initialMiniaturesByYear).map(Number).sort(function(a, b) { return b - a; }).map(String);
+        }, []);
 
         var summaryStats = useMemo(function() {
             var totalAvailable = 0;
             var totalCollected = 0;
-
             var years = Object.keys(initialMiniaturesByYear);
             for (var i = 0; i < years.length; i++) {
                 var year = years[i];
                 var yearData = initialMiniaturesByYear[year];
                 var superCount = yearData.super ? yearData.super.length : 0;
+                // Adicionado verificação se yearData.regular existe antes de acessar .length, para evitar erro nos anos 1995-2006
                 var regularCount = yearData.regular ? yearData.regular.length : 0;
                 totalAvailable += superCount + regularCount;
-
                 var yearCollection = collection[year] || {};
                 var superOwned = yearCollection.super ? Object.keys(yearCollection.super).length : 0;
                 var regularOwned = yearCollection.regular ? Object.keys(yearCollection.regular).length : 0;
                 totalCollected += superOwned + regularOwned;
             }
-
             return { totalAvailable: totalAvailable, totalCollected: totalCollected };
         }, [collection]);
 
@@ -991,161 +975,148 @@
                 var updated = JSON.parse(JSON.stringify(prev));
                 if (!updated[year]) updated[year] = {};
                 if (!updated[year][type]) updated[year][type] = {};
-
                 if (updated[year][type][id]) {
                     delete updated[year][type][id];
                 } else {
                     updated[year][type][id] = true;
                 }
-
                 if (Object.keys(updated[year][type]).length === 0) delete updated[year][type];
                 if (Object.keys(updated[year]).length === 0) delete updated[year];
-
                 try {
                     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
                 } catch (e) {
                     console.error('Erro ao salvar:', e);
                 }
-
                 return updated;
             });
         }, []);
 
-
-        // =========================================================================
-        // NOVAS FUNÇÕES DE NAVEGAÇÃO E HISTÓRICO
-        // =========================================================================
-
-        // Função para navegar para o detalhe e atualizar o histórico do navegador
+        // Funções de navegação e histórico (mantidas)
         var navigateToYear = useCallback(function(year, type) {
             var newState = { year: year, type: type };
-            // Adiciona um estado ao histórico e muda a URL hash
             window.history.pushState(newState, '', "#" + year + "-" + type);
             setSelectedYear({ year: year, type: type });
         }, [setSelectedYear]);
 
-        // Função para voltar usando o histórico do navegador
         var handleGoBack = useCallback(function() {
             window.history.back();
         }, []);
 
-        // Hook para lidar com o botão de voltar do navegador (popstate)
         useEffect(function() {
             var handlePopState = function(event) {
                 var state = event.state;
-                
-                // Se o usuário clica em "Voltar" e chega no estado inicial (sem hash ou sem estado)
                 if (window.location.hash === '' || !state) {
-                     setSelectedYear(null);
+                    setSelectedYear(null);
                 } else if (state && state.year && state.type) {
-                    // Se o estado do histórico tem year e type (navegação de volta para outro ano/tipo)
                     setSelectedYear({ year: state.year, type: state.type });
                 }
             };
-            
-            // Lidar com o carregamento inicial da página se houver um hash na URL
             var initialHash = window.location.hash;
             var match = initialHash.match(/^#(\d{4})-(super|regular)$/);
             if (match) {
-                 var year = match[1];
-                 var type = match[2];
-                 setSelectedYear({ year: year, type: type });
-                 // Substitui o estado inicial para que o popstate funcione corretamente no primeiro "Voltar"
-                 window.history.replaceState({ year: year, type: type }, '', initialHash);
+                var year = match[1];
+                var type = match[2];
+                setSelectedYear({ year: year, type: type });
+                window.history.replaceState({ year: year, type: type }, '', initialHash);
             } else {
-                 // Garante que o estado inicial é null e que o histórico está limpo
-                 window.history.replaceState(null, '', window.location.pathname);
+                window.history.replaceState(null, '', window.location.pathname);
             }
-            
             window.addEventListener('popstate', handlePopState);
             return function() {
                 window.removeEventListener('popstate', handlePopState);
             };
         }, []);
-        
-        // =========================================================================
-        // FIM DAS NOVAS FUNÇÕES
-        // =========================================================================
-
 
         if (!selectedYear) {
             return createElement(
-                'div',
-                { 
-                    className: "min-h-screen bg-cover bg-center flex flex-col items-center justify-start text-white p-4",
-                    style: { backgroundImage: "url('img/alemed.jpg')", backgroundAttachment: "fixed" }
-                },
-                createElement(
-                    'div',
-                    { className: "relative bg-black/70 w-full h-full flex flex-col items-center justify-start p-6 rounded-xl max-w-6xl mx-auto shadow-2xl min-h-[90vh] md:min-h-[95vh]" },
-                    createElement(
-                        'div',
-                        { className: "w-full text-center mt-12 md:mt-0" },
-                        createElement('h1', { className: "text-4xl font-extrabold text-center mb-4 text-purple-400" }, "Coleção Hot Wheels T-Hunt"),
-                        createElement(
-                            'div',
-                            { className: "bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg p-4 shadow-lg text-white w-full max-w-sm mx-auto my-4 md:absolute md:top-6 md:right-6 md:my-0 md:w-72 md:max-w-none md:z-10" },
-                            createElement('h3', { className: "text-base md:text-lg font-bold mb-3 text-purple-300" }, "Resumo da Coleção"),
-                            createElement(
-                                'div',
-                                { className: "space-y-2 text-xs md:text-sm" },
-                                createElement('div', { className: "flex justify-between" },
-                                    createElement('span', { className: "opacity-90" }, "Minis Cadastradas:"),
-                                    createElement('span', { className: "font-semibold" }, summaryStats.totalAvailable)
-                                ),
-                                createElement('div', { className: "flex justify-between" },
-                                    createElement('span', { className: "opacity-90" }, "Minis que Tenho:"),
-                                    createElement('span', { className: "font-semibold text-green-300" }, summaryStats.totalCollected)
-                                )
-                            )
-                        ),
-                        createElement('p', { className: "mb-8 text-center text-gray-300 max-w-lg mx-auto" }, "Selecione o ano e a categoria para visualizar sua coleção.")
-                    ),
-                    createElement(
-                        'div',
-                        { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full max-w-4xl" },
-                        yearsList.map(function(year) {
-                            var yearData = initialMiniaturesByYear[year] || {};
-                            var collectionData = collection[year] || {};
+                'div', 
+                { className: "min-h-screen bg-cover bg-center flex flex-col items-center justify-start text-white p-4", style: { backgroundImage: "url('img/alemed.jpg')", backgroundAttachment: "fixed" } }, 
+                createElement( 
+                    'div', 
+                    { className: "relative bg-black/70 w-full h-full flex flex-col items-center justify-start p-6 rounded-xl max-w-6xl mx-auto shadow-2xl min-h-[90vh] md:min-h-[95vh]" }, 
+                    createElement( 
+                        'div', 
+                        { className: "w-full text-center mt-12 md:mt-0" }, 
+                        createElement('h1', { className: "text-4xl font-extrabold text-center mb-4 text-purple-400" }, "Coleção Hot Wheels T-Hunt"), 
+                        createElement( 
+                            'div', 
+                            { className: "bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg p-4 shadow-lg text-white w-full max-w-sm mx-auto my-4 md:absolute md:top-6 md:right-6 md:my-0 md:w-72 md:max-w-none md:z-10" }, 
+                            createElement('h3', { className: "text-base md:text-lg font-bold mb-3 text-purple-300" }, "Resumo da Coleção"), 
+                            createElement( 
+                                'div', 
+                                { className: "space-y-2 text-xs md:text-sm" }, 
+                                createElement('div', { className: "flex justify-between" }, 
+                                    createElement('span', { className: "opacity-90" }, "Minis Cadastradas:"), 
+                                    createElement('span', { className: "font-semibold" }, summaryStats.totalAvailable) 
+                                ), 
+                                createElement('div', { className: "flex justify-between" }, 
+                                    createElement('span', { className: "opacity-90" }, "Minis que Tenho:"), 
+                                    createElement('span', { className: "font-semibold text-green-300" }, summaryStats.totalCollected) 
+                                ) 
+                            ) 
+                        ), 
+                        createElement('p', { className: "mb-8 text-center text-gray-300 max-w-lg mx-auto" }, "Selecione o ano e a categoria para visualizar sua coleção.") 
+                    ), 
+                    // INÍCIO DA CRIAÇÃO DOS BOTÕES FIXOS E ORDENADOS POR ANO
+                    createElement( 
+                        'div', 
+                        { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full max-w-4xl" }, 
+                        orderedYears.map(function(year) {
+                            var yearNum = parseInt(year);
+                            var yearCollection = collection[year] || {};
+                            var yearData = initialMiniaturesByYear[year];
+                            
                             var superCount = yearData.super ? yearData.super.length : 0;
                             var regularCount = yearData.regular ? yearData.regular.length : 0;
-                            var superOwned = collectionData.super ? Object.keys(collectionData.super).length : 0;
-                            var regularOwned = collectionData.regular ? Object.keys(collectionData.regular).length : 0;
+                            var superOwned = yearCollection.super ? Object.keys(yearCollection.super).length : 0;
+                            var regularOwned = yearCollection.regular ? Object.keys(yearCollection.regular).length : 0;
+                            
+                            // Verifica se o ano está entre 1995 e 2006 (inclusive)
+                            var isOldFormatYear = yearNum >= 1995 && yearNum <= 2006;
 
                             return createElement(
-                                'div',
-                                { key: year, className: "bg-white/10 shadow-lg rounded-xl p-3 flex flex-col items-center border border-purple-500/50 card" },
-                                createElement('h3', { className: "text-xl font-bold mb-3 text-purple-300" }, year),
-                                createElement(
-                                    'div',
-                                    { className: "space-y-3 w-full" },
-                                    createElement(
-                                        'button',
-                                        {
-                                            onClick: function() { navigateToYear(year, "super"); }, // MODIFICADO
-                                            className: "w-full bg-yellow-200 hover:bg-yellow-500 active:scale-95 text-black rounded-lg py-2 text-sm font-semibold transition flex justify-center items-center"
-                                        },
-                                        "SUPER T-HUNT",
-                                        createElement('span', { className: "ml-4 font-bold" }, superOwned + " / " + superCount)
-                                    ),
-                                    createElement(
-                                        'button',
-                                        {
-                                            onClick: function() { navigateToYear(year, "regular"); }, // MODIFICADO
-                                            className: "w-full bg-gray-400 hover:bg-gray-500 active:scale-95 text-black rounded-lg py-2 text-sm font-semibold transition flex justify-center items-center"
-                                        },
-                                        "REGULAR T-HUNT",
-                                        createElement('span', { className: "ml-4 font-bold" }, regularOwned + " / " + regularCount)
-                                    )
+                                'div', 
+                                { key: year, className: "bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl p-4 shadow-xl text-white flex flex-col items-center hover:bg-white/30 transition duration-300" }, 
+                                createElement('h2', { className: "text-2xl font-bold mb-3 text-purple-200" }, year),
+                                createElement( 
+                                    'div', 
+                                    { className: "space-y-3 w-full" }, 
+                                    // Botão SUPER T-HUNT (sempre visível)
+                                    createElement( 
+                                        'button', 
+                                        { 
+                                            onClick: function() { navigateToYear(year, "super"); }, // Link/função mantidos
+                                            // CLASSE ALTERADA: Usa flex-col para empilhar o conteúdo
+                                            className: "w-full bg-yellow-200 hover:bg-yellow-500 active:scale-95 text-black rounded-lg py-3 text-sm font-semibold transition flex flex-col justify-center items-center" 
+                                        }, 
+                                        // Texto principal: AUMENTADO para text-lg
+                                        createElement('span', { className: "mb-0.5 **text-xl**" }, "SUPER T-HUNT"),
+                                        // Contagem: DIMINUÍDO para text-base
+                                        createElement('span', { className: "font-bold **text-base**" }, superOwned + " / " + superCount) 
+                                    ), 
+                                    // Botão REGULAR T-HUNT (aparece apenas se não for o período 1995-2006)
+                                    !isOldFormatYear && createElement( 
+                                        'button', 
+                                        { 
+                                            onClick: function() { navigateToYear(year, "regular"); }, // Link/função mantidos
+                                            // CLASSE ALTERADA: Usa flex-col para empilhar o conteúdo
+                                            className: "w-full bg-gray-400 hover:bg-gray-500 active:scale-95 text-black rounded-lg py-3 text-sm font-semibold transition flex flex-col justify-center items-center" 
+                                        }, 
+                                        // Texto principal: AUMENTADO para text-lg
+                                        createElement('span', { className: "mb-0.5 **text-xl**" }, "REGULAR T-HUNT"),
+                                        // Contagem: DIMINUÍDO para text-base
+                                        createElement('span', { className: "font-bold **text-base**" }, regularOwned + " / " + regularCount) 
+                                    ) 
                                 )
                             );
-                        })
+                        }) 
                     )
-                )
-            );
+                    // FIM DA CRIAÇÃO DOS BOTÕES
+                ) 
+            ); 
         }
 
-        // --- INÍCIO DA VIEW DE DETALHE (O código problemático foi removido daqui) ---
+        // --- INÍCIO DA VIEW DE DETALHE ---
         var year = selectedYear.year;
         var type = selectedYear.type;
         var miniatures = initialMiniaturesByYear[year] && initialMiniaturesByYear[year][type] ? initialMiniaturesByYear[year][type] : [];
@@ -1153,67 +1124,64 @@
         var titleText = type === "super" ? "T-HUNT SUPER" : "T-HUNT REGULAR";
 
         return createElement(
-            'div',
-            { 
-                className: "min-h-screen bg-cover bg-center flex flex-col items-center justify-start text-white p-4",
-                style: { backgroundImage: "url('img/alemed.jpg')", backgroundAttachment: "fixed" }
-            },
+            'div', 
+            { className: "min-h-screen bg-cover bg-center flex flex-col items-center justify-start text-white p-4", style: { backgroundImage: "url('img/alemed.jpg')", backgroundAttachment: "fixed" } },
             createElement(
                 'div',
                 { className: "relative bg-black/70 w-full h-full flex flex-col items-center justify-start p-6 rounded-xl max-w-6xl mx-auto shadow-2xl min-h-[90vh] md:min-h-[95vh]" },
                 createElement(
                     'button',
-                    {
-                        onClick: handleGoBack, // MODIFICADO: Usa a função do histórico do navegador
-                        className: "flex items-center gap-2 px-4 py-2 text-sm bg-purple-600 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-700 active:scale-95 transition mb-6 self-start"
+                    { 
+                        onClick: handleGoBack,
+                        className: "btn-primary bg-purple-600 active:bg-purple-800 text-white font-bold py-2 px-4 rounded-lg flex items-center mb-6 self-start"
                     },
-                    "← Voltar"
+                    "< Voltar"
                 ),
-                createElement('h2', { className: "text-4xl font-extrabold text-purple-400 mb-6 text-center" }, "Coleção " + year + " - " + titleText),
-                miniatures.length === 0 
-                    ? createElement('p', { className: "text-gray-200" }, "Nenhuma miniatura cadastrada.")
-                    : createElement(
-                        'div',
-                        { className: "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full" },
-                        miniatures.map(function(mini) {
-                            var isCollected = currentCollection[mini.id];
-                            return createElement(
+                createElement('h1', { className: "text-4xl font-extrabold text-center mb-6 text-purple-300" }, titleText + " - " + year),
+                createElement(
+                    'div',
+                    { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 w-full" },
+                    miniatures.map(function(mini) {
+                        var isCollected = currentCollection[mini.id];
+                        var imagePath = mini.image || "https://via.placeholder.com/150";
+
+                        return createElement(
+                            'div',
+                            { 
+                                key: mini.id,
+                                className: "card bg-white rounded-lg shadow-lg p-3 flex flex-col items-center " + (isCollected ? 'collected-card' : 'border-4 border-transparent')
+                            },
+                            createElement(
                                 'div',
+                                { className: "w-full h-40 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center mb-2" },
+                                createElement('img', { 
+                                    src: imagePath, 
+                                    alt: mini.name, 
+                                    className: "object-contain w-full h-full", 
+                                    onError: function(e) {
+                                        e.target.onerror = null; 
+                                        e.target.src = "https://via.placeholder.com/266x333?text=IMAGEM+NAO+ENCONTRADA";
+                                    }
+                                })
+                            ),
+                            createElement('p', { className: "text-gray-800 text-xs sm:text-sm font-semibold text-center mt-1 mb-2" }, mini.name),
+                            createElement(
+                                'label',
                                 {
-                                    key: mini.id,
-                                    className: "bg-white shadow-xl rounded-xl p-3 flex flex-col items-center justify-between card " + (isCollected ? "collected-card" : "border border-gray-200")
+                                    onClick: function() { toggleMiniature(year, type, mini.id); },
+                                    className: "flex items-center justify-center gap-1 text-gray-800 text-sm font-medium cursor-pointer"
                                 },
-                                createElement(
-                                    'div',
-                                    { className: "w-full h-[120px] bg-gray-200 rounded-lg mb-2 flex items-center justify-center overflow-hidden" },
-                                    createElement('img', {
-                                        src: mini.image,
-                                        alt: mini.name,
-                                        className: "object-contain w-full h-full rounded-lg",
-                                        onError: function(e) {
-                                            e.target.onerror = null;
-                                            e.target.src = "https://placehold.co/225x120/f3f4f6/333?text=IMAGEM+NAO+ENCONTRADA";
-                                        }
-                                    })
-                                ),
-                                createElement('p', { className: "text-gray-800 text-xs sm:text-sm font-semibold text-center mt-1 mb-2" }, mini.name),
-                                createElement(
-                                    'label',
-                                    {
-                                        onClick: function() { toggleMiniature(year, type, mini.id); },
-                                        className: "flex items-center justify-center gap-1 text-gray-800 text-sm font-medium cursor-pointer"
-                                    },
-                                    createElement('input', {
-                                        type: "checkbox",
-                                        checked: isCollected || false,
-                                        onChange: function() {},
-                                        className: "w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                    }),
-                                    "Tenho"
-                                )
-                            );
-                        })
-                    )
+                                createElement('input', {
+                                    type: "checkbox",
+                                    checked: isCollected || false,
+                                    onChange: function() {},
+                                    className: "w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                                }),
+                                "Tenho"
+                            )
+                        );
+                    })
+                )
             )
         );
     }
@@ -1225,10 +1193,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
