@@ -1140,7 +1140,7 @@
                 createElement('h1', { className: "text-4xl font-extrabold text-center mb-6 text-purple-300" }, titleText + " - " + year),
                 createElement(
                     'div',
-                    { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 w-full" },
+                    { className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full" },
                     miniatures.map(function(mini) {
                         var isCollected = currentCollection[mini.id];
                         var imagePath = mini.image || "https://via.placeholder.com/150";
@@ -1153,7 +1153,7 @@
                             },
                             createElement(
                                 'div',
-                                { className: "w-full h-40 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center mb-2" },
+                                { className: "w-full h-full bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center mb-2" },
                                 createElement('img', { 
                                     src: imagePath, 
                                     alt: mini.name, 
