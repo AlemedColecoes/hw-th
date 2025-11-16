@@ -58,6 +58,42 @@
 
     var initialMiniaturesByYear = {
         // ... (Seu objeto initialMiniaturesByYear permanece aqui)
+        2026: {
+            super: [
+                { id: 1, name: "Drift Ender", image: "img/2026/sth01.jpg" },
+                { id: 2, name: "Ford Mustang GTO", image: "img/2026/sth02.jpg" },
+                { id: 3, name: "Ferrari F40 Competizione", image: "img/2026/sth03.jpg" },
+                { id: 4, name: "64 Impala", image: "img/2026/sth04.jpg" },
+                { id: 5, name: "87Ford Sierra Cosworth", image: "img/2026/sth05.jpg" },
+                { id: 6, name: "Honda Civic Custom", image: "img/2026/sth06.jpg" },
+                { id: 7, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 8, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 9, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 10, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 11, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 12, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 13, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 14, name: "---", image: "img/2026/sth0.jpg" },
+                { id: 15, name: "---", image: "img/2026/sth0.jpg" },
+            ],
+            regular: [
+                { id: 1, name: "87 Buick Regal GNX", image: "img/2026/th01.jpg" },
+                { id: 2, name: "92 Dodge Viper RT/10", image: "img/2026/th02.jpg" },
+                { id: 3, name: "Electro Silhouette", image: "img/2026/th03.jpg" },
+                { id: 4, name: "---", image: "img/2026/th0.jpg" },
+                { id: 5, name: "---", image: "img/2026/th0.jpg" },
+                { id: 6, name: "---", image: "img/2026/th0.jpg" },
+                { id: 7, name: "---", image: "img/2026/th0.jpg" },
+                { id: 8, name: "---", image: "img/2026/th0.jpg" },
+                { id: 9, name: "---", image: "img/2026/th0.jpg" },
+                { id: 10, name: "---", image: "img/2026/th0.jpg" },
+                { id: 11, name: "---", image: "img/2026/th0.jpg" },
+                { id: 12, name: "---", image: "img/2026/th0.jpg" },
+                { id: 13, name: "---", image: "img/2026/th0.jpg" },
+                { id: 14, name: "---", image: "img/2026/th0.jpg" },
+                { id: 15, name: "---", image: "img/2026/th0.jpg" }
+            ]
+        },
         2025: {
             super: [
                 { id: 1, name: "87 Audi Quattro", image: "img/2025/sth01.jpg" },
@@ -934,7 +970,7 @@
         var collection = stateCollection[0];
         var setCollection = stateCollection[1];
         
-        // Define a lista fixa e ordenada de anos (2025 a 1995)
+        // Define a lista fixa e ordenada de anos (2026 a 1995)
         var orderedYears = useMemo(function() {
             // Obter as chaves, converter para número, ordenar em ordem decrescente, e converter de volta para string
             return Object.keys(initialMiniaturesByYear).map(Number).sort(function(a, b) { return b - a; }).map(String);
@@ -1182,6 +1218,7 @@
 
 </body>
 </html>
+
 
 
 
